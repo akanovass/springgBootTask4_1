@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="layout/main.html">
+
+<div layout:fragment="frag">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+       + Add New Task
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/add}" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label>NAME</label>
+                    <input type="text" name="name" placeholder="Task name..." class="form-control">
+                    <label>DESCRIPTION:</label>
+                    <textarea name="description" placeholder="Task description..." class="form-control"></textarea>
+                    <label>TASK DEADLINE DATE:</label>
+                    <input type="date" name="date" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Task</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div><br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">NAME</th>
+            <th scope="col">DEADLINE DATE</th>
+            <th scope="col">IS COMPLETED</th>
+            <th scope="col">DETAILS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--/*@thymesVar id="taskList" type=""*/-->
+        <tr th:each="task:${taskList}">
+            <th scope="row" th:text = "${task.id}"></th>
+            <td th:text = "${task.name}"></td>
+            <td th:text = "${task.deadlineDate}"></td>
+            <td th:if = "${task.isCompleted}">YES</td>
+            <td th:unless = "${task.isCompleted}">NO</td>
+            <td> <a th:href="@{'/details/'+${task.id}}" class="btn btn-primary">DETAILS</a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>

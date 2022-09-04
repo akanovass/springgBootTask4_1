@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="layout/main.html">
+
+<div layout:fragment="frag">
+    <div class="row mt-3 ">
+        <div class = "col-8 mx-auto">
+            <form th:action="@{/edit}" method="post">
+                <input type="hidden" name="id" th:value="*{task.id}"></imput>
+                <label>NAME</label>
+                <input type="text" name="name" class="form-control" th:value="*{task.name}"><br>
+                <label>DESCRIPTION:</label>
+                <textarea name="description" class="form-control" th:text="${task.description}"></textarea><br>
+                <label>TASK DEADLINE DATE:</label>
+                <input type="date" name="date" class="form-control" th:value="*{task.deadlineDate}"><br>
+                <label>COMPLETED:</label><br>
+                <select name="completed" class="form-control">
+                    <option value="true"  th:selected="${task.isCompleted}" >YES</option>
+                    <option value="false" th:selected="${!task.isCompleted}">NO</option>
+                </select>
+                <br>
+                <button type="submit" class="btn btn-success">SAVE</button>&nbsp;
+                <a type="button" class="btn btn-danger" th:href="@{'/delete/'+${task.id}}">DELETE</a>
+            </form>
+        </div>
+    </div>
+</div>
+</html>
